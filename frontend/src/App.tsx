@@ -1,25 +1,17 @@
 import type { Component } from 'solid-js';
-
-import logo from './logo.svg';
-import styles from './App.module.css';
+import {createSignal, Show} from "solid-js";
+import {Chatroom} from "./Chatroom";
+import {Login} from "./Login";
 
 const App: Component = () => {
+  const [isLoggedIn, setLoggedIn] = createSignal(false);
+  const [username, setUsername] = createSignal("");
+
   return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
+    <div>
+      <Show when={isLoggedIn()} fallback={<Login setLoggedIn={setLoggedIn} setUsername={setUsername}/>}>
+        <Chatroom username={username()}/>
+      </Show>
     </div>
   );
 };
