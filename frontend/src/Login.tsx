@@ -1,23 +1,24 @@
-import {JSXElement} from "solid-js";
+import styles from "./Login.module.css";
 
-export const Login = (props) => {
-    let input: HTMLInputElement | ((el: HTMLInputElement) => void) | undefined;
-    const handleSubmit = () => {
-        // @ts-ignore
-        if (!input.value.trim()) return;
-    };
+export const Login = (props: { username: string; setUsername: (arg0: string) => void; setLoggedIn: (arg0: boolean) => void; }) => {
+    const handleSubmit = (e: Event) => {
+        e.preventDefault();
+        props.setLoggedIn(true);
+    }
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form use:formSubmit={handleSubmit}>
-                <label>
-                    Username:
-                    <input ref={input} />
-                    <button>
-                        Login
-                    </button>
-                </label>
+        <div class={styles.main}>
+            <h1 class={styles.banner}>Welcome</h1>
+            <form onSubmit={handleSubmit}>
+                <input type={"text"}
+                       value={props.username}
+                       onChange={(e) => {
+                    props.setUsername(e.currentTarget.value.trim())
+                }}
+                        placeholder={"Username"}/>
+                <button onClick={handleSubmit}>
+                    Login
+                </button>
             </form>
         </div>
     )

@@ -9,9 +9,9 @@ const App: Component = () => {
 
   return (
     <div>
-      <Show when={isLoggedIn()} fallback={<Login setLoggedIn={setLoggedIn} setUsername={setUsername}/>}>
-        <Chatroom username={username()}/>
-      </Show>
+        <Show when={isLoggedIn()} fallback={<Login setLoggedIn={setLoggedIn} username={username()} setUsername={setUsername}/>}>
+            <Chatroom username={username()}/>
+        </Show>
     </div>
   );
 };
